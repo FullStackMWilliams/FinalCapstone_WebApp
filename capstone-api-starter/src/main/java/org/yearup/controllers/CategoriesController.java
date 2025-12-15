@@ -1,5 +1,6 @@
 package org.yearup.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.yearup.data.CategoryDao;
 import org.yearup.data.ProductDao;
@@ -23,7 +24,8 @@ public class CategoriesController
     private ProductDao productDao;
 
     // create an Autowired controller to inject the categoryDao and ProductDao
-    public CategoriesController(CategoryDao categoryDao, ProductDao productDao){
+    @Autowired
+    public CategoriesController(CategoryDao categoryDao, ProductDao productDao) {
         this.categoryDao = categoryDao;
         this.productDao = productDao;
     }
