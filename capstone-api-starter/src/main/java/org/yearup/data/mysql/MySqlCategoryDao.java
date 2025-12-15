@@ -15,10 +15,13 @@ import java.util.List;
 @Component
 public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
 {
+
+
     public MySqlCategoryDao(DataSource dataSource)
     {
         super(dataSource);
     }
+
 
     @Override
     public List<Category> getAllCategories()
@@ -47,6 +50,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
 
         return categories;
     }
+
 
     @Override
     public Category getById(int categoryId) {
