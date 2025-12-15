@@ -40,6 +40,7 @@ public class CategoriesController
     }
 
     // add the appropriate annotation for a get action
+    @GetMapping("/{id}")
     public Category getById(@PathVariable int id)
     {
         // get the category by id
