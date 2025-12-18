@@ -106,8 +106,26 @@ public class MySqlShoppingCartDao extends MySqlDaoBase
 
 
     @Override
-    public void updateProduct(int userId, int productId, int quantity) {
+    public void updateProduct(int userId, int productId, int quantity)
+    {
+        String sql =
+                "UPDATE shopping_cart " +
+                        "SET quantity = ? " +
+                        "WHERE user_id = ? AND product_id = ?";
 
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql))
+        {
+            stmt.setInt(1, quantity);
+            stmt.setInt(2, userId);
+            stmt.setInt(3, productId);
+
+            stmt.executeUpdate(); // if row doesn't exist, it updates 0 rows (that's OK per spec)
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException("Error updating cart userId=" + userId + " productId=" + productId, e);
+        }
     }
 
     @Override
