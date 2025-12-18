@@ -3,7 +3,6 @@ package org.yearup.data.mysql;
 import org.springframework.stereotype.Repository;
 import org.yearup.data.ProductDao;
 import org.yearup.data.ShoppingCartDao;
-import org.yearup.data.mysql.MySqlDaoBase;
 import org.yearup.models.Product;
 import org.yearup.models.ShoppingCart;
 import org.yearup.models.ShoppingCartItem;
@@ -66,9 +65,45 @@ public class MySqlShoppingCartDao extends MySqlDaoBase
 
 
     @Override
-    public void addProduct(int userId, int productId) {
+    public void addProduct(int userId, int productId)
+    {
+        String updateSql =
+                "UPDATE shopping_cart " +
+                        "SET quantity = quantity + 1 " +
+                        "WHERE user_id = ? AND product_id = ?";
 
+        String insertSql =
+                "INSERT INTO shopping_cart (user_id, product_id, quantity) " +
+                        "VALUES (?, ?, 1)";
+
+        try (Connection conn = getConnection())
+        {
+            // 1) Try to increment existing row
+            try (PreparedStatement updateStmt = conn.prepareStatement(updateSql))
+            {
+                updateStmt.setInt(1, userId);
+                updateStmt.setInt(2, productId);
+
+                int rowsUpdated = updateStmt.executeUpdate();
+
+                // 2) If nothing was updated, insert new row
+                if (rowsUpdated == 0)
+                {
+                    try (PreparedStatement insertStmt = conn.prepareStatement(insertSql))
+                    {
+                        insertStmt.setInt(1, userId);
+                        insertStmt.setInt(2, productId);
+                        insertStmt.executeUpdate();
+                    }
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException("Error adding product to cart userId=" + userId + " productId=" + productId, e);
+        }
     }
+
 
     @Override
     public void updateProduct(int userId, int productId, int quantity) {
