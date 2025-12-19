@@ -202,6 +202,11 @@ public class MySqlShoppingCartDao implements ShoppingCartDao {
 
 ---
 
+## UML DIAGRAM
+<img width="18251" height="6110" alt="Decision Point Option-2025-12-19-002703" src="https://github.com/user-attachments/assets/fca460bc-7ff0-447e-a54d-757273b202ef" />
+
+---
+
 ## Screenshots
 <img width="1918" height="1066" alt="Screenshot 2025-12-18 184922" src="https://github.com/user-attachments/assets/cf67800f-ff47-4fa2-95bd-c6ab6b14bee1" />
 <img width="1919" height="1065" alt="Screenshot 2025-12-18 184944" src="https://github.com/user-attachments/assets/53420915-2180-4cc7-b635-5e53189f2ad5" />
