@@ -202,6 +202,13 @@ public class MySqlShoppingCartDao implements ShoppingCartDao {
 
 ---
 
+## Screenshots
+<img width="1918" height="1066" alt="Screenshot 2025-12-18 184922" src="https://github.com/user-attachments/assets/cf67800f-ff47-4fa2-95bd-c6ab6b14bee1" />
+<img width="1919" height="1065" alt="Screenshot 2025-12-18 184944" src="https://github.com/user-attachments/assets/53420915-2180-4cc7-b635-5e53189f2ad5" />
+<img width="1918" height="1073" alt="Screenshot 2025-12-18 185027" src="https://github.com/user-attachments/assets/bc149c41-fc7b-456c-81ac-d0ca8af0dbf8" />
+
+---
+
 ## ✅ Final Thoughts
 
 This project strengthened my understanding of **backend architecture, security, and persistence**. Each phase built upon the last, resulting in a production-style API that mirrors real-world e-commerce systems.
