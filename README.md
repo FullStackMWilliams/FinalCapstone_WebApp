@@ -143,21 +143,31 @@ Implement a persistent shopping cart tied to authenticated users.
 
 ---
 
-## ⭐ Interesting Code Highlight – Safe Cart Insert / Update
+## ⭐ Interesting Code Highlight – Using `@Repository` for the DAO Layer
 
-```java
-int rowsUpdated = updateStmt.executeUpdate();
+````java
+@Repository
+public class MySqlShoppingCartDao extends MySqlDaoBase
+        implements ShoppingCartDao {
 
-if (rowsUpdated == 0) {
-    insertStmt.executeUpdate();
+    private final ProductDao productDao;
+
+    public MySqlShoppingCartDao(DataSource dataSource, ProductDao productDao) {
+        super(dataSource);
+        this.productDao = productDao;
+    }
 }
-```
+`````
+Why this code is important
 
-**Why this matters:**
+This snippet highlights an intentional architectural decision: using **`@Repository` instead of `@Component`** for database access classes.
+While both annotations register a Spring Bean, **`@Repository`** is specifically designed for the **data access layer**. By using it here, Spring is able to:
+- Automatically translate low-level `SQLException` errors into Spring’s unchecked `DataAccessException` hierarchy
+- Clearly communicate the role of this class to other developers
+- Align the project with Spring’s recommended layered architecture
 
-* Prevents duplicate cart rows
-* Ensures idempotent behavior
-* Mirrors real-world transactional logic
+This choice improves **maintainability**, **debugging**, and **readability**, especially as applications grow in complexity.
+
 
 ---
 
